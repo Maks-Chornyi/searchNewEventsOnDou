@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import ua.dou.searchNewEventsOnDou.domain.User;
 import ua.dou.searchNewEventsOnDou.repository.UserRepo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -16,13 +19,14 @@ public class UserService {
         return userRepo.findByMail(mail);
     }
 
-    public void addNewMail(String mail) {
-        User user = userRepo.findByMail(mail);
+    public void addNewMail(User user) {
 
-        if(user == null) {
-            user = new User();
-            user.setMail(mail);
-            userRepo.save(user);
+        User user1 = userRepo.findByMail(user.getMail());
+
+        if(user1 == null) {
+            user1 = new User();
+            user1.setMail(user.getMail());
+            userRepo.save(user1);
         } else {
             try {
                 throw new NotFoundException("User with this email is already exist");
@@ -30,5 +34,9 @@ public class UserService {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<User> findAllUsers() {
+        return (ArrayList<User>) userRepo.findAll();
     }
 }

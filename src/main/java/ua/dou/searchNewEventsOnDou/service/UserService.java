@@ -15,12 +15,7 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public User findByMail(String mail) {
-        return userRepo.findByMail(mail);
-    }
-
     public void addNewMail(User user) {
-
         User user1 = userRepo.findByMail(user.getMail());
 
         if(user1 == null) {
@@ -38,5 +33,9 @@ public class UserService {
 
     public List<User> findAllUsers() {
         return (ArrayList<User>) userRepo.findAll();
+    }
+
+    public void deleteUserAndMail(String mail) {
+        userRepo.deleteByMail(mail);
     }
 }

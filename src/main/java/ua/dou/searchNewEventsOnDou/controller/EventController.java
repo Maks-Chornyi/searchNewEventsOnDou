@@ -3,10 +3,7 @@ package ua.dou.searchNewEventsOnDou.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.dou.searchNewEventsOnDou.domain.User;
 import ua.dou.searchNewEventsOnDou.service.UserService;
 
@@ -29,4 +26,12 @@ public class EventController {
         userService.addNewMail(user);
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteUserAndMail(@RequestBody String mail) {
+        userService.deleteUserAndMail(mail);
+        return null;
+    }
+
+
 }

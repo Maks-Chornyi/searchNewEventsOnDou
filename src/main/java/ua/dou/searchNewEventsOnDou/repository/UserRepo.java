@@ -6,4 +6,6 @@ import ua.dou.searchNewEventsOnDou.domain.User;
 
 public interface UserRepo extends CrudRepository<User, Long> {
     User findByMail(String mail);
+
+    void deleteByMail(String mail);
 }

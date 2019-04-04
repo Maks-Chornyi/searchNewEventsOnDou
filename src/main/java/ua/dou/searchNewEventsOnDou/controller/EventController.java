@@ -17,7 +17,6 @@ public class EventController {
 
     @GetMapping
     public ResponseEntity<?> welcomePage() {
-
         return new ResponseEntity<List<User>>(userService.findAllUsers(),HttpStatus.OK);
     }
 
@@ -30,8 +29,7 @@ public class EventController {
     @DeleteMapping
     public ResponseEntity<?> deleteUserAndMail(@RequestBody String mail) {
         userService.deleteUserAndMail(mail);
-        return null;
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
-
 
 }

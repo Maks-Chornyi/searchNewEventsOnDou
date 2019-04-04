@@ -3,11 +3,13 @@ package ua.dou.searchNewEventsOnDou.service;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.dou.searchNewEventsOnDou.domain.User;
 import ua.dou.searchNewEventsOnDou.repository.UserRepo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -35,7 +37,14 @@ public class UserService {
         return (ArrayList<User>) userRepo.findAll();
     }
 
+
+    @Transactional
     public void deleteUserAndMail(String mail) {
-        userRepo.deleteByMail(mail);
+        User user = userRepo.findByMail(mail);
+        if (user != null) {
+            userRepo.deleteByMail(mail);
+        } else {
+            throw new NoSuchElementException("No such element in DB");
+        }
     }
 }
